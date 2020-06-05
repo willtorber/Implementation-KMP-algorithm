@@ -5,8 +5,9 @@
  */
 package view;
 
-import javax.swing.JFileChooser;
 import business.Main;
+
+import javax.swing.*;
 
 /**
  * @author William Torres
