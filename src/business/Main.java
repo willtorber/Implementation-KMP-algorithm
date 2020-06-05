@@ -5,8 +5,6 @@
  */
 package business;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -28,7 +26,7 @@ public class Main {
                     boolean esta = true;
                     for (String s : split) {
                         if (s.length() > 0) {
-                            int pos = KMP.kmp(texto, s, indice);
+                            int pos = Kmp.kmp(texto, s, indice);
                             if (pos < 0) {
                                 esta = false;
                                 break;
@@ -36,22 +34,6 @@ public class Main {
                             indice = (pos + s.length());
                         }
                     }
-
-                    /*
-                        ArrayList<String> split = KMP.split(patron);
-                        int indice = 0;
-                        boolean esta = true;
-                        for (int i = 0; i < split.size(); i++) {
-                            if(split.get(i).length()>0){
-                            int pos = KMP.kmp(texto,split.get(i), indice);
-                            if (pos < 0) {
-                                esta = false;
-                                break;
-                            }
-                            indice = (pos + split.get(i).length());
-                            }
-                        }
-                     */
                     if (esta) {
                         so.println(patron + " SI");
                     } else {

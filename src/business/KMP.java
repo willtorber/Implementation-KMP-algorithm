@@ -10,21 +10,21 @@ import java.util.ArrayList;
 /**
  * @author William Torres
  */
-public class KMP {
+public class Kmp {
 
-    static int kmp(String texto, String patron, int pos) {
-        int n = texto.length(), m = patron.length();
+    static int kmp(String text, String pattern, int pos) {
+        int n = text.length(), m = pattern.length();
         boolean start = true;
         int startInt = 0;
-        ArrayList<Integer> tab = table(patron);
+        ArrayList<Integer> tab = table(pattern);
         int seen = 0, i = pos;
         while (i < n) {
             
-            while(seen>0 && texto.charAt(i)!=patron.charAt(seen)){
+            while(seen>0 && text.charAt(i)!=pattern.charAt(seen)){
                 seen = tab.get(seen - 1);
                 start = true;
             }
-            if (texto.charAt(i) == patron.charAt(seen)) {
+            if (text.charAt(i) == pattern.charAt(seen)) {
                 if (start) {
                     start = false;
                     startInt = i - seen;
@@ -39,21 +39,21 @@ public class KMP {
         return -1;
     }
 
-    static ArrayList<Integer> table(String patron) {
-        int m = patron.length();
-        ArrayList<Integer> tablePos = new ArrayList<Integer>();
+    static ArrayList<Integer> table(String pattern) {
+        int m = pattern.length();
+        ArrayList<Integer> tablePos = new ArrayList<>();
         tablePos.add(0);
         int temp, i = 1;
         while (i < m) {
             tablePos.add(tablePos.get(i - 1));
             temp = tablePos.get(i);
-            while (temp > 0 && patron.charAt(i) != patron.charAt(temp)) {
+            while (temp > 0 && pattern.charAt(i) != pattern.charAt(temp)) {
                 if (temp <= i + 1) {
                     tablePos.set(i, tablePos.get(temp - 1));
                     temp = tablePos.get(i);
                 }
             }
-            if (patron.charAt(i) == patron.charAt(temp)) {
+            if (pattern.charAt(i) == pattern.charAt(temp)) {
                 tablePos.set(i, temp + 1);
             }
             i++;
@@ -64,17 +64,17 @@ public class KMP {
     /*
     * Manual version (Split). It's slower than Java Lang implementation
     * */
-    static ArrayList<String> split(String patron) {
+    static ArrayList<String> split(String pattern) {
         ArrayList<String> split = new ArrayList<>();
         String subCadena = "";
-        int m = patron.length(), i=0;
+        int m = pattern.length(), i=0;
         while (i < m) {
-            if (patron.charAt(i) == '*') {
+            if (pattern.charAt(i) == '*') {
                 split.add(subCadena);
                 subCadena = "";
             } else {
-                subCadena += patron.charAt(i);
-                if (i == patron.length() - 1) {
+                subCadena += pattern.charAt(i);
+                if (i == pattern.length() - 1) {
                     split.add(subCadena);
                 }
             }
